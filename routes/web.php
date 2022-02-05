@@ -22,6 +22,7 @@ Route::group(['namespace'   =>  "Product"], function(){
     Route::get("/shop", 'ProductController@index')->name('homePage');
     Route::get("/boutique", 'ProductController@index')->name('homePage');
     Route::get('/boutique/{slug}', 'ProductController@show')->name('products.show');
+    Route::get('/search', 'ProductController@search')->name('products.search');
     
 });
 
@@ -46,3 +47,12 @@ Route::group(['namespace'   =>  "Checkout"], function(){
 
 
 
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

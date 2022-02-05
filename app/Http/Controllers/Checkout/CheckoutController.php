@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Arr;
 
+use Illuminate\Support\Facades\Auth;
+
 use DateTime;
 use Stripe\Stripe;
 use Stripe\PaymentIntent;
@@ -95,8 +97,10 @@ class CheckoutController extends Controller
             $i++;
         }
 
+        $id = Auth::id();
+
         $order->products = serialize($products);
-        $order->user_id = 15;
+        $order->user_id = Auth()->user()->id;
         $order->save();
 
         if ($data['paymentIntent']['status'] === 'succeeded') {

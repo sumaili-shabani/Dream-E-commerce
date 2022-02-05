@@ -13,6 +13,9 @@
 
     <title>E-commerce | casalind</title>
 
+     <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
     @yield('extra-script')
 
     <link rel="canonical" href="{{ asset('bootstrap-4.0.0/dist/css/bootstrap.css') }}">
@@ -26,6 +29,8 @@
     <!-- Custom styles for this template -->
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
     <link href="{{ asset('css/blog.css') }}" rel="stylesheet">
+    <!-- Ecommerce App CSS -->
+    <link rel="stylesheet" href="{{ asset('css/ecommerce.css') }}">
     {{-- <link href="{{ asset('css/checkout.css') }}" rel="stylesheet"> --}}
   </head>
 
@@ -41,10 +46,8 @@
             <a class="blog-header-logo text-dark" href="{{ route('homePage') }}">🛍️ E-Commerce</a>
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center">
-            <a class="text-muted" href="#">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3"><circle cx="10.5" cy="10.5" r="7.5"></circle><line x1="21" y1="21" x2="15.8" y2="15.8"></line></svg>
-            </a>
-            <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
+            @include('partials.search')
+            @include('partials.auth')
           </div>
         </div>
       </header>
@@ -78,6 +81,16 @@
         
       @endif
 
+      @if (count($errors) > 0)
+          <div class="alert alert-danger">
+            <ul class="mb-0 mt-0">
+              @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+              @endforeach
+            </ul>
+          </div>
+      @endif
+
      {{--  <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
         <div class="col-md-6 px-0">
           <h1 class="display-4 font-italic">Title of a longer featured blog post</h1>
@@ -85,6 +98,12 @@
           <p class="lead mb-0"><a href="#" class="text-white font-weight-bold">Continue reading...</a></p>
         </div>
       </div> --}}
+
+      @if (request()->input('q'))
+        <div class="col-md-12">
+          <h6>{{ $products->total() }} résultat(s) pour la recherche "{{ request()->q }}"</h6>
+        </div>
+      @endif
 
       <div class="row mb-2 mt-2">
         
