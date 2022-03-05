@@ -13,16 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('products.index');
-});
+// Route::get('/', function () {
+//     return view('products.index');
+// });
 
 //product
 Route::group(['namespace'   =>  "Product"], function(){
+     Route::get("/", 'ProductController@index')->name('homePage');
     Route::get("/shop", 'ProductController@index')->name('homePage');
     Route::get("/boutique", 'ProductController@index')->name('homePage');
     Route::get('/boutique/{slug}', 'ProductController@show')->name('products.show');
     Route::get('/search', 'ProductController@search')->name('products.search');
+
+    Route::get('/facture', 'ProductController@printBill')->name('facture');
     
 });
 

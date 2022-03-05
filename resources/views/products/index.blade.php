@@ -30,7 +30,7 @@
                   <p class="card-text mb-auto"><b>{{ $product->getPrice() }} </b></p>
                   <a href="{{ route('products.show', $product->slug) }}" class="stretched-link btn btn-dark btn-block"><i class="fa fa-location-arrow" aria-hidden="true"></i> Consulter le produit</a>
                 </div>
-                <img class="card-img-right flex-auto d-none d-md-block" width="200" height="250" data-src="{{ asset('images/'.$product->image) }}" src="{{ asset('storage/'.$product->image) }}" alt="Card image cap">
+                <img class="card-img-right flex-auto d-none d-md-block" width="200" height="250" data-src="{{ asset('storage/'.$product->image) }}" src="{{ asset('storage/'.$product->image) }}" alt="Card image cap">
               </div>
             </div>
           @endforeach

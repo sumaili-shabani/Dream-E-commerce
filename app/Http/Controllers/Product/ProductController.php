@@ -74,12 +74,20 @@ class ProductController extends Controller
      */
     public function show($slug)
     {
-        $product = Product::where('slug', $slug)->firstOrFail();
+        //$product = Product::where('slug', $slug)->firstOrFail();
         // return response()->json([
         //     'product'   =>$product->title
         // ]);
 
-        return view('products.show')->with('product', $product);
+        //return view('products.show')->with('product', $product);
+
+        $product = Product::where('slug', $slug)->firstOrFail();
+        $stock = $product->stock === 0 ? 'Indisponible' : 'Disponible';
+
+        return view('products.show', [
+            'product' => $product,
+            'stock' => $stock
+        ]);
     }
 
     /**
